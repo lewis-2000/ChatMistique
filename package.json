@@ -1,0 +1,30 @@
+{
+  "name": "expresstemplate",
+  "version": "1.0.0",
+  "description": "Express Template for initializing express projects",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app.js",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Flammy-Tech/expressTemplate.git"
+  },
+  "keywords": [
+    "Express"
+  ],
+  "author": "Lewis Ng'ang'a",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Flammy-Tech/expressTemplate/issues"
+  },
+  "homepage": "https://github.com/Flammy-Tech/expressTemplate#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
