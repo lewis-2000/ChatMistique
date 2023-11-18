@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/home.js"></script>
+    <link rel="stylesheet" href="./css/home.css">
+    <title>Home</title>
+</head>
+<body>
+    <nav>
+        <div class="nav-logo">
+            Logo
+        </div>
+
+        <form action="/" method="post">
+            <div class="input-container">
+                <input type="text" id="search" name="search" placeholder="Search" required>
+            </div>
+        </form>
+
+        <div class="nav-links">
+            <ul>
+                <li>Login</li>
+                <li>About</li>
+            </ul>
+        </div>
+
+    </nav>
+
+    <main>
+        <div class="mistique">
+            <div class="video-mistique-container">
+                <h1 id="loadingVideo">Loading........</h1>
+                <video id="self-videoElement" autoplay playsinline></video>
+                <video id="videoElement" autoplay playsinline></video>
+        
+            </div>
+        
+            <div class="chat-mistique-container">
+                <div class="chat-container">
+
+                </div>
+
+                <div class="chat-controls">
+                    <form action="/" method="post">
+                        <input type="text" name="self-chat" id="self-chat" placeholder="Message.........">
+                        <button class="message-button" type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

@@ -1,4 +1,5 @@
 const express = require('express');
+const textLoggerMiddleware = require('./middlewares/logger');
 const port = 3000;
 
 const app = express();
@@ -26,5 +27,5 @@ app.use('/', homeRouter);
 
 
 app.listen(port, ()=>{
-    console.log(`listening on port localhost ${port}`);
+    textLoggerMiddleware(`listening on port localhost ${port}`);
 });
