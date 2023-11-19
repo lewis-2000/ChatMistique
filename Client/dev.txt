@@ -1,0 +1,36 @@
+function initializeCamera() {
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+            playSound();
+            var videoElement = document.getElementById('videoElement');
+            var selfvideoElement = document.getElementById('self-videoElement');
+            var videoLoadingElement = document.getElementById('loadingVideo');
+
+            
+            videoLoadingElement.style.display = 'none';
+
+            videoElement.srcObject = stream;
+            selfvideoElement.srcObject = stream;
+            selfvideoElement.style.border = " solid 1px #000";
+                        
+        })
+        .catch(function (error) {
+            console.error('Error accessing the camera:', error);
+            videoLoadingElement.textContent = "Camera Permission denied.";
+        });
+}
+
+function playSound() {
+    var sound = new Audio("../assets/audio/phone-call-14472.mp3");
+    sound.play();
+}
+
+function pauseSound() {
+    // Stop and reset the sound
+    sound.pause();
+    sound.currentTime = 0;
+}
+
+// Call the functions
+initializeCamera();
+

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./js/home.js"></script>
+    <script src="./js/home.js" defer></script>
     <link rel="stylesheet" href="./css/home.css">
     <title>Home</title>
 </head>
@@ -31,9 +31,12 @@
     <main>
         <div class="mistique">
             <div class="video-mistique-container">
-                <h1 id="loadingVideo">Loading........</h1>
+                <img  id="loadingVideo" src=".\assets\videos\Fidget-spinner.gif" alt="Loading video">
+
                 <video id="self-videoElement" autoplay playsinline></video>
                 <video id="videoElement" autoplay playsinline></video>
+
+                <div class="video-chat-controls"></div>
         
             </div>
         
