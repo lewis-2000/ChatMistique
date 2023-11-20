@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var loaded = false;
     function initializeCamera() {
-        navigator.mediaDevices.getUserMedia({ video: true })
+        navigator.mediaDevices.getUserMedia({ video: true, audio:true })
             .then(function (stream) {
                 
                 playSound();
