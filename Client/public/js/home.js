@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(function (stream) {
                 
+                playSound();
                 var videoElement = document.getElementById('videoElement');
                 var selfvideoElement = document.getElementById('self-videoElement');
                 var videoLoadingElement = document.getElementById('loadingVideo');
