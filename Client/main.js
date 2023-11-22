@@ -1,151 +1,3 @@
-//////////// css ////////////
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-#videos{
-    display: grid;
-    grid-template-columns: 1fr;
-    height: 100vh;
-    overflow:hidden;
-}
-
-.video-player{
-    background-color: black;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-#user-2{
-    display: none;
-}
-
-.smallFrame{
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    height: 170px;
-    width: 300px;
-    border-radius: 5px;
-    border:2px solid #b366f9;
-    -webkit-box-shadow: 3px 3px 15px -1px rgba(0,0,0,0.77);
-    box-shadow: 3px 3px 15px -1px rgba(0,0,0,0.77);
-    z-index: 999;
-}
-
-
-#controls{
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform:translateX(-50%);
-    display: flex;
-    gap: 1em;
-}
-
-
-.control-container{
-  background-color: rgb(179, 102, 249, .9);
-  padding: 20px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.control-container img{
-    height: 30px;
-    width: 30px;
-}
-
-#leave-btn{
-    background-color: rgb(255,80,80, 1);
-}
-
-@media screen and (max-width:600px) {
-        .smallFrame{
-            height: 80px;
-            width: 120px;
-        }
-
-        .control-container img{
-            height: 20px;
-            width: 20px;
-        }
-
-        #user-1{
-            height:200px;
-            width:300px;
-        }
-}
-
-
-
-
-
-
-
-
-
-//////////////////////////////// Html //////////////////////////////////
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>PeerChat</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-</head>
-<body>
-
-    <div id="videos">
-        <video class="video-player" id="user-1" autoplay playsinline></video>
-        <video class="video-player" id="user-2" autoplay playsinline></video>
-        <div class="message-container"></div>
-    </div>
-
-
-    <div id="controls">
-
-        <div class="control-container" id="camera-btn">
-            <img src="icons/camera.png" alt="camera action call button" />
-        </div>
-
-        <div class="control-container" id="mic-btn">
-            <img src="icons/mic.png" alt="mute action call button" />
-        </div>
-
-        <a href="lobby.html">
-            <div class="control-container" id="leave-btn">
-                <img src="icons/phone.png" alt="Leave call button" />
-            </div>
-        </a>
-
-    </div>
-    
-</body>
-<script src='agora-rtm-sdk-1.4.4.js'></script>
-<script src='main.js'></script>
-</html>
-
-
-
-
-
-
-
-
-
-
-/////////////////////////////////////// Js //////////////////////////////////////
-
 let APP_ID = "499de1cf7e794121927aace3eed4a42d"
 
 
@@ -198,8 +50,55 @@ let init = async () => {
 
     localStream = await navigator.mediaDevices.getUserMedia(constraints)
     document.getElementById('user-1').srcObject = localStream
+
+    // Set up message listener
+    channel.on('ChannelMessage', handleChannelMessage);
 }
- 
+
+
+let handleChannelMessage = (message, memberId) => {
+    // Handle messages received from the channel
+    appendMessage(memberId, message.text, 'received-message');
+}
+
+let sendMessage = () => {
+    // Get the message input value
+    let messageInput = document.getElementById('message-input');
+    let messageText = messageInput.value.trim();
+
+    // Check if the message is not empty
+    if (messageText !== '') {
+        // Send the message to the channel
+        channel.sendMessage({ text: messageText, senderId: uid });
+
+        // Append the sent message to the UI
+        appendMessage('user-1', messageText, 'sent-message');
+
+        // Clear the message input
+        messageInput.value = '';
+    }
+}
+
+let appendMessage = (senderId, message, messageClass) => {
+    // Append the message to the messages container
+    let messageContainer = document.getElementById('message-container');
+    let messageElement = document.createElement('div');
+    messageElement.className = 'message';
+
+    let messageBubble = document.createElement('div');
+    messageBubble.className = messageClass === 'sent-message' ? 'sender-bubble' : 'receiver-bubble';
+    messageBubble.innerText = `${senderId}: ${message}`;
+
+    messageElement.appendChild(messageBubble);
+    messageContainer.appendChild(messageElement);
+
+    // Scroll to the bottom to show the latest message
+    messageContainer.scrollTop = messageContainer.scrollHeight;
+}
+
+
+
+document.getElementById('send-button').addEventListener('click', sendMessage);
 
 let handleUserLeft = (MemberId) => {
     document.getElementById('user-2').style.display = 'none'
