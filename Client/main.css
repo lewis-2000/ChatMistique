@@ -109,6 +109,7 @@ nav {
     grid-template-columns: 1fr;
     height: 100vh;
     overflow: hidden;
+    
 }
 
 .video-player {
@@ -189,5 +190,9 @@ nav {
     #user-1 {
         height: 200px;
         width: 300px;
+    }
+
+    .input-container {
+        height: 5rem;
     }
 }
