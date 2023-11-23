@@ -1,4 +1,4 @@
-# PeerChat
+# Chat Mistique
 A peer to peer WebRTC application with controls
 
 # Installation
